@@ -64,7 +64,6 @@ const check = async () => {
 
 check()
 
-
 setInterval(check, TIMEOUT)
 
 const server = http.createServer((req, res) => {
