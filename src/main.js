@@ -58,6 +58,8 @@ const check = async () => {
     if (available) {
       await transporter.sendMail(buildMailOptions(successOptions))
     }
+
+    return available
   } catch {
   }
 }
@@ -66,9 +68,10 @@ check()
 
 setInterval(check, TIMEOUT)
 
-const server = http.createServer((req, res) => {
+const server = http.createServer(async (req, res) => {
+  const count = await check()
   res.writeHead(200, { 'Content-Type': MIME_TYPES.html })
-  res.write('<h1>Норма!</h1>')
+  res.write(`<h1>В наличии: ${count}</h1>`)
   res.end()
 })
 
