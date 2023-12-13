@@ -13,7 +13,7 @@ const MIME_TYPES = {
   svg:     'image/svg+xml',
 }
 
-const PORT = 3000
+const PORT = 4000
 
 const url     = 'https://nomadgoods.com/products/sport-band-ultra-strike?_data=routes%2F%28%24lang%29._frame.products.%24handle'
 const TIMEOUT = 10 * 1000
