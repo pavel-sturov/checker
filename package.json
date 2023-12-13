@@ -1,0 +1,23 @@
+{
+  "name": "checker",
+  "version": "1.0.0",
+  "description": "Node js checker app",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "node src/main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/pavel-sturov/checker.git"
+  },
+  "author": "Pavel Sturov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pavel-sturov/checker/issues"
+  },
+  "homepage": "https://github.com/pavel-sturov/checker#readme",
+  "dependencies": {
+    "nodemailer": "^6.9.7"
+  }
+}
