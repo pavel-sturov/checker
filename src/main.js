@@ -1,4 +1,19 @@
-const mailer = require('./utils/mail-transporter')
+import * as http from 'node:http'
+import { transporter } from './utils/mail-transporter.js'
+
+const MIME_TYPES = {
+  default: 'application/octet-stream',
+  html:    'text/html; charset=UTF-8',
+  js:      'application/javascript',
+  css:     'text/css',
+  png:     'image/png',
+  jpg:     'image/jpg',
+  gif:     'image/gif',
+  ico:     'image/x-icon',
+  svg:     'image/svg+xml',
+}
+
+const PORT = 3000
 
 const url     = 'https://nomadgoods.com/products/sport-band-ultra-strike?_data=routes%2F%28%24lang%29._frame.products.%24handle'
 const TIMEOUT = 10 * 1000
@@ -20,7 +35,7 @@ const buildMailOptions = ({ subject, html }) => ({
   html,
 })
 
-mailer.sendMail(buildMailOptions(startOptions))
+transporter.sendMail(buildMailOptions(startOptions))
 
 const check = async () => {
   try {
@@ -30,7 +45,7 @@ const check = async () => {
     const available = json.product.variants.nodes[0].quantityAvailable
 
     if (available) {
-      await mailer.sendMail(buildMailOptions(successOptions))
+      await transporter.sendMail(buildMailOptions(successOptions))
     }
   } catch {
   }
@@ -39,3 +54,11 @@ const check = async () => {
 check()
 
 setInterval(check, TIMEOUT)
+
+const server = http.createServer((req, res) => {
+  res.writeHead(200, { 'Content-Type': MIME_TYPES.html })
+  res.write('<h1>Норма!</h1>')
+  res.end()
+})
+
+server.listen(PORT)
